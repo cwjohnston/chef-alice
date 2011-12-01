@@ -6,6 +6,7 @@ package "libssl-dev"
 include_recipe "git"
 include_recipe "perl"
 include_recipe "runit"
+include_recipe "build-essential"
 
 runit_service "alice"
 

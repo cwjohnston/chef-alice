@@ -36,8 +36,10 @@ deploy node[:alice][:root] do
   symlinks "" => ""
   create_dirs_before_symlink [ ]
   before_restart do
-    execute "install alice dependencies" do
+    execute "setup alice extlib" do
       command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/extlib Module::Install local::lib"
+    end
+    execute "install alice dependencies" do
       command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/extlib --installdeps #{node[:alice][:root]}"
     end
   end 

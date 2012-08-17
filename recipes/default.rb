@@ -20,13 +20,7 @@ end
   end
 end
 
-remote_file "#{node[:alice][:root]}/shared/cpanm" do
-  source "https://github.com/miyagawa/cpanminus/raw/master/cpanm"
-  mode 0755
-  owner "root"
-  group "root"
-  not_if{File.exists?("#{node[:alice][:root]}/shared/cpanm")}
-end
+package 'cpanminus'
 
 deploy node[:alice][:root] do
   not_if {File.exists?("#{node[:alice][:root]}/deploy.lock")}

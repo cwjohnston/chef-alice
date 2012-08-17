@@ -33,14 +33,14 @@ deploy node[:alice][:root] do
   repo node[:alice][:repo]
   revision node[:alice][:revision]
   symlink_before_migrate "" => ""
-  symlinks "" => ""
+  symlinks "extlib" => "extlib"
   create_dirs_before_symlink [ ]
   before_restart do
     execute "setup alice extlib" do
-      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/extlib Module::Install local::lib"
+      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
     end
     execute "install alice dependencies" do
-      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/extlib --installdeps #{node[:alice][:root]}"
+      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib --installdeps #{node[:alice][:root]}/current"
     end
   end 
 end

@@ -46,3 +46,9 @@ features/*
 # Berkshelf
 Berksfile
 Berksfile.lock
+
+# Vagrant
+Vagrantfile
+
+# Rake
+Rakefile

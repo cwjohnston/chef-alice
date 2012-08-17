@@ -1,2 +1,4 @@
 .sw?
 metadata.json
+.vagrant
+tmp/*

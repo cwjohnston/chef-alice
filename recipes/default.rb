@@ -20,8 +20,6 @@ end
   end
 end
 
-package 'cpanminus'
-
 deploy node[:alice][:root] do
   not_if {File.exists?("#{node[:alice][:root]}/deploy.lock")}
   repo node[:alice][:repo]
@@ -31,10 +29,10 @@ deploy node[:alice][:root] do
   create_dirs_before_symlink [ ]
   before_restart do
     execute "setup alice extlib" do
-      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
+      command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
     end
     execute "install alice dependencies" do
-      command "#{node[:alice][:root]}/shared/cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib --installdeps #{node[:alice][:root]}/current"
+      command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib --installdeps #{node[:alice][:root]}/current"
     end
   end 
 end

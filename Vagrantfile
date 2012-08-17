@@ -30,6 +30,6 @@ Vagrant::Config.run do |config|
       "recipe[alice]"
     ]
 
-    chef.json = { :nginx => { "version" => "1.0.14" } }
+    chef.json = { }
   end
 end

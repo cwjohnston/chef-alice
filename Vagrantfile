@@ -27,7 +27,7 @@ Vagrant::Config.run do |config|
     chef.log_level = :info
 
     chef.run_list = [
-      "recipe[alice]"
+      "recipe[alice::catlady]"
     ]
 
     chef.json = { }

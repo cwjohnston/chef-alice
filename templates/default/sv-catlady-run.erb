@@ -1,0 +1,5 @@
+#!/bin/bash
+exec 2>&1
+exec perl -I<%= node[:alice][:root] %>/current/lib -I<%= node[:catlady][:root] %>/current/lib -I<%= node[:catlady][:root] %>/shared/extlib/lib <%= node[:catlady][:root] %>/current/bin/catlady 
+
+#-p <%= node[:catlady][:port] %> -a <%= node[:catlady][:ip] %>

@@ -1,3 +1,4 @@
+# Alice + Chef == automatic hardchats
 This cookbook installs and configures a single-user instance of [Alice](https://github.com/leedo/alice).
 
 ## The live version

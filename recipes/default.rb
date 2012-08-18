@@ -14,10 +14,13 @@ service "alice" do
   supports :status => true, :restart => true
 end
 
-%w{ shared/cached-copy releases }.each do |d|
-  directory "#{node[:alice][:root]}/#{d}" do
-    recursive true
-  end
+directory "#{node[:alice][:root]}/shared" do
+  recursive true
+end
+
+execute "setup alice extlib" do
+  command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
+  not_if "perl -I#{node[:alice][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:alice][:root]}/shared/extlib -mModule::Install -e ''"
 end
 
 deploy node[:alice][:root] do
@@ -28,9 +31,6 @@ deploy node[:alice][:root] do
   symlinks "extlib" => "extlib"
   create_dirs_before_symlink [ ]
   before_restart do
-    execute "setup alice extlib" do
-      command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
-    end
     execute "install alice dependencies" do
       command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib --installdeps #{node[:alice][:root]}/current"
     end

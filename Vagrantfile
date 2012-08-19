@@ -42,9 +42,7 @@ Vagrant::Config.run do |config|
         }
       },
       :mysql => {
-        :server_debian_password => 'changeme',
-        :server_root_password => 'changeme',
-        :server_repl_password => 'changeme'
+        :server_root_password => 'changeme'
       }
     }
   end

@@ -9,6 +9,7 @@ default.catlady[:domain] = "example.com"
 default.catlady[:cookie] = "changeme"
 default.catlady[:secret] = "changeme"
 default.catlady[:salt] = "changeme"
+default.catlady[:default_server] = {'name'=>'example','host'=>'irc.example.com','port'=>6667,'channels'=>['#example']}
 default.catlady[:user_config_dir] = "/opt/catlady/current/etc/users"
 default.catlady[:socket] = "/opt/catlady/current/var/shell.sock"
 default.catlady[:sharedir] = "/opt/catlady/current/share"

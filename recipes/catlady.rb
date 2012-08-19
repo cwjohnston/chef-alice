@@ -29,21 +29,15 @@ end
 %w{ FindBin
     Digest::SHA1
     Digest::HMAC_SHA1
-    Plack::Middleware::Session
     Plack::Middleware::ReverseProxy
-    Plack::Session::Store::Cache
-    Plack::Session::State::Cookie
+    Plack::Session
     Any::Moose
-    AnyEvent::Strict
-    AnyEvent::Socket
-    AnyEvent::Handle
+    AnyEvent
     AnyEvent::DBI::Abstract
     List::Util
     Path::Class
     Text::MicroTemplate::File
-    FindBin
-    Any::Moose
-    MouseX::Getopt }.each do |pl|
+    FindBin }.each do |pl|
       execute "install dependency #{pl}" do
         command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib #{pl}"
         not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -m#{pl} -e ''"

@@ -27,6 +27,7 @@ Vagrant::Config.run do |config|
     chef.log_level = :info
 
     chef.run_list = [
+      "recipe[mysql::ruby]",
       "recipe[mysql::server]",
       "recipe[alice::catlady]"
     ]

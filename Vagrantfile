@@ -32,6 +32,14 @@ Vagrant::Config.run do |config|
     ]
 
     chef.json = {
+      :catlady => {
+        :db => {
+          :hostname => "localhost",
+          :username => "root",
+          :password => "changeme",
+          :name => "alice"
+        }
+      },
       :mysql => {
         :server_debian_password => 'changeme',
         :server_root_password => 'changeme',

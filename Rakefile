@@ -1,16 +1,16 @@
 #!/usr/bin/env rake
 
+current_dir = File.dirname(__FILE__)
 cookbook_path = '/tmp/alice-cookbooks'
-
-
+data_bag_path = '/tmp/alice-data_bags'
 
 @cookbook = "alice"
 
 desc "install dependencies using Berkshelf"
 task :install_deps do
   system("berks install --shims #{cookbook_path}")
+  system("ln -sfv #{File.join(current_dir,'data_bags')} #{data_bag_path}")
 end
-
 
 desc "Runs foodcritic linter"
 task :foodcritic do

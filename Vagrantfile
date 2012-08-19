@@ -23,6 +23,7 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path    = [ '/tmp/alice-cookbooks' ]
+    chef.data_bags_path    = "/tmp/alice-data_bags"
     chef.provisioning_path = "/etc/chef"
     chef.log_level = :info
 

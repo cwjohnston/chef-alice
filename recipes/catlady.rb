@@ -17,7 +17,7 @@ link "#{node[:catlady][:root]}/shared/extlib" do
   to "#{node[:alice][:root]}/shared/extlib"
 end
 
-alice_config "#{node[:catlady][:root]}/shared/etc/config.json"
+catlady_config "#{node[:catlady][:root]}/shared/etc/config.json"
 
 mysql_config = {:host => node[:catlady][:db][:hostname], :username => node[:catlady][:db][:username], :password => node[:catlady][:db][:password]}
 

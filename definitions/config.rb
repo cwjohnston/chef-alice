@@ -1,4 +1,4 @@
-action :create do
+define :catlady_config do
 
   default_server = {
     :name => "alice",
@@ -26,14 +26,9 @@ action :create do
     :image_prefix => ""
   }
 
-  config_resource = @new_resource
-  json_file @new_resource.name do
+  json_file params[:name] do
     content config
     mode 0644
-    notifies :updated, config_resource
   end
-end
-
-action :updated do
-  @new_resource.updated_by_last_action(true)
+  
 end

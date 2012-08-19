@@ -1,4 +1,5 @@
 include_recipe "alice::default"
+include_recipe "database"
 
 runit_service "catlady"
 
@@ -17,6 +18,37 @@ link "#{node[:catlady][:root]}/shared/extlib" do
 end
 
 alice_config "#{node[:catlady][:root]}/shared/etc/config.json"
+
+mysql_config = {:host => node[:catlady][:db][:hostname], :username => node[:catlady][:db][:username], :password => node[:catlady][:db][:password]}
+
+execute "initial SQL import" do
+  command "mysql --user=#{node[:catlady][:db][:username]} --password=#{node[:catlady][:db][:password]} --host=#{node[:catlady][:db][:hostname]} #{node[:catlady][:db][:name]} < #{node[:catlady][:root]}/current/catlady.sql"
+  action :nothing
+end
+
+mysql_database node[:catlady][:db][:name] do
+  connection mysql_config
+  action :create
+  notifies :run, "execute[initial SQL import]", :immediately
+end
+
+mysql_database_user node[:catlady][:db][:username] do
+  connection mysql_config
+  password node[:catlady][:db][:password]
+  action :create
+  not_if { node[:catlady][:db][:username] == "root" }
+end
+
+mysql_database_user node[:catlady][:db][:username] do
+  connection mysql_config
+  password node[:catlady][:db][:password]
+  database_name node[:catlady][:db][:name]
+  privileges [:select,:update,:insert]
+  action :grant
+  not_if { node[:catlady][:db][:username] == "root" }
+end
+
+
 
 %w{ FindBin
     Digest::SHA1

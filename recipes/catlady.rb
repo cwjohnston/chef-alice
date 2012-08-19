@@ -16,35 +16,7 @@ link "#{node[:catlady][:root]}/shared/extlib" do
   to "#{node[:alice][:root]}/shared/extlib"
 end
 
-default_server = {
-    :name => "alice",
-    :host => "irc.usealice.org",
-    :port => 6767,
-    :channels => ["#alice"]
-  }
-
-config = {
-  :port => node[:catlady][:port],
-  :address => node[:catlady][:address],
-  :salt => node[:catlady][:salt],
-  :secret => node[:catlady][:secret],
-  :domain => node[:catlady][:domain],
-  :cookie => node[:catlady][:cookie],
-  :db_user => node[:catlady][:db][:username],
-  :db_pass => node[:catlady][:db][:password],
-  :dsn => "DBI:mysql:dbname=#{node[:catlady][:db][:name]};host=#{node[:catlady][:db][:hostname]};port=#{node[:catlady][:db][:port]};mysql_auto_reconnect=1;mysql_enable_utf8=1",
-  :db_attr => { },
-  :default_server => default_server,
-  :static_prefix => "/static/",
-  :image_prefix => ""
-}
-
-json_file "#{node[:catlady][:root]}/shared/etc/config.json" do
-  content config
-  owner "root"
-  group "root"
-  mode "0644"
-end
+alice_config "#{node[:catlady][:root]}/shared/etc/config.json"
 
 %w{ FindBin
     Digest::SHA1

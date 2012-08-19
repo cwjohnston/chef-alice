@@ -27,9 +27,16 @@ Vagrant::Config.run do |config|
     chef.log_level = :info
 
     chef.run_list = [
+      "recipe[mysql::server]",
       "recipe[alice::catlady]"
     ]
 
-    chef.json = { }
+    chef.json = {
+      :mysql => {
+        :server_debian_password => 'changeme',
+        :server_root_password => 'changeme',
+        :server_repl_password => 'changeme'
+      }
+    }
   end
 end

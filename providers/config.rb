@@ -16,7 +16,7 @@ action :create do
     :cookie => node[:catlady][:cookie],
     :db_user => node[:catlady][:db][:username],
     :db_pass => node[:catlady][:db][:password],
-    :configs => node[:catlady][:configs],
+    :configs => node[:catlady][:user_config_dir],
     :shell_sock => node[:catlady][:socket],
     :sharedir => node[:catlady][:sharedir],
     :dsn => "DBI:mysql:dbname=#{node[:catlady][:db][:name]};host=#{node[:catlady][:db][:hostname]};port=#{node[:catlady][:db][:port]};mysql_auto_reconnect=1;mysql_enable_utf8=1",

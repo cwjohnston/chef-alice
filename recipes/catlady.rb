@@ -26,30 +26,6 @@ execute "initial SQL import" do
   action :nothing
 end
 
-mysql_database node[:catlady][:db][:name] do
-  connection mysql_config
-  action :create
-  notifies :run, "execute[initial SQL import]", :immediately
-end
-
-mysql_database_user node[:catlady][:db][:username] do
-  connection mysql_config
-  password node[:catlady][:db][:password]
-  action :create
-  not_if { node[:catlady][:db][:username] == "root" }
-end
-
-mysql_database_user node[:catlady][:db][:username] do
-  connection mysql_config
-  password node[:catlady][:db][:password]
-  database_name node[:catlady][:db][:name]
-  privileges [:select,:update,:insert]
-  action :grant
-  not_if { node[:catlady][:db][:username] == "root" }
-end
-
-
-
 %w{ FindBin
     Digest::SHA1
     Digest::HMAC_SHA1
@@ -90,5 +66,26 @@ deploy node[:catlady][:root] do
       to "#{node[:alice][:root]}/current/share"
     end
   end
+end
 
+mysql_database node[:catlady][:db][:name] do
+  connection mysql_config
+  action :create
+  notifies :run, "execute[initial SQL import]", :immediately
+end
+
+mysql_database_user node[:catlady][:db][:username] do
+  connection mysql_config
+  password node[:catlady][:db][:password]
+  action :create
+  not_if { node[:catlady][:db][:username] == "root" }
+end
+
+mysql_database_user node[:catlady][:db][:username] do
+  connection mysql_config
+  password node[:catlady][:db][:password]
+  database_name node[:catlady][:db][:name]
+  privileges [:select,:update,:insert]
+  action :grant
+  not_if { node[:catlady][:db][:username] == "root" }
 end

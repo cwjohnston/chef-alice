@@ -16,5 +16,5 @@ default.catlady[:db][:hostname] = "localhost"
 default.catlady[:db][:port] = 3306
 default.catlady[:db][:username] = "root"
 default.catlady[:db][:password] = nil 
-default.catlady[:db][:name] = "usealice"
+default.catlady[:db][:name] = "alice"
 default.catlady[:db][:params] = Hash.new

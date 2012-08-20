@@ -41,7 +41,6 @@ Vagrant::Config.run do |config|
           :password => "changeme",
           :name => "alice",
           :params => {
-            :exec_server => 1,
             :mysql_enable_utf8 => 1,
             :mysql_auto_reconnect => 1
           }

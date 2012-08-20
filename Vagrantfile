@@ -28,9 +28,11 @@ Vagrant::Config.run do |config|
     chef.log_level = :info
 
     chef.run_list = [
+      "recipe[varnish::default]",
       "recipe[mysql::ruby]",
       "recipe[mysql::server]",
-      "recipe[alice::catlady]"
+      "recipe[alice::catlady]",
+      "recipe[alice::varnish]"
     ]
 
     chef.json = {
@@ -45,6 +47,10 @@ Vagrant::Config.run do |config|
             :mysql_auto_reconnect => 1
           }
         }
+      },
+      :varnish => {
+        :listen_port => 80,
+        :vcl_conf => 'alice.vcl'
       },
       :mysql => {
         :server_root_password => 'changeme'

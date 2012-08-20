@@ -39,7 +39,12 @@ Vagrant::Config.run do |config|
           :hostname => "localhost",
           :username => "root",
           :password => "changeme",
-          :name => "alice"
+          :name => "alice",
+          :params => {
+            :exec_server => 1,
+            :mysql_enable_utf8 => 1,
+            :mysql_auto_reconnect => 1
+          }
         }
       },
       :mysql => {

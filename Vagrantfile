@@ -36,6 +36,10 @@ Vagrant::Config.run do |config|
     ]
 
     chef.json = {
+      :aliceadmin => {
+        :host => "127.0.0.1",
+        :port => "8000"
+      },
       :catlady => {
         :db => {
           :hostname => "localhost",
@@ -54,6 +58,10 @@ Vagrant::Config.run do |config|
       },
       :mysql => {
         :server_root_password => 'changeme'
+      },
+      :nginx => {
+        :install_method => 'source',
+        :version => '1.0.14'
       }
     }
   end

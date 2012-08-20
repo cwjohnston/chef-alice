@@ -20,7 +20,7 @@ define :catlady_config do
     :shell_sock => node[:catlady][:socket],
     :sharedir => node[:catlady][:sharedir],
     :dsn => "DBI:mysql:dbname=#{node[:catlady][:db][:name]};host=#{node[:catlady][:db][:hostname]};port=#{node[:catlady][:db][:port]};mysql_auto_reconnect=1;mysql_enable_utf8=1",
-    :db_attr => { },
+    :db_attr => node[:catlady][:db][:params].to_hash,
     :default_server => node[:catlady][:default_server].to_hash,
     :static_prefix => "/static/",
     :image_prefix => ""

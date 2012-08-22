@@ -29,6 +29,7 @@ Vagrant::Config.run do |config|
 
     chef.run_list = [
       "recipe[varnish::default]",
+      "recipe[stunnel]",
       "recipe[mysql::ruby]",
       "recipe[mysql::server]",
       "recipe[alice::catlady]",
@@ -55,6 +56,9 @@ Vagrant::Config.run do |config|
       :varnish => {
         :listen_port => 80,
         :vcl_conf => 'alice.vcl'
+      },
+      :stunnel => {
+        :https => { :connect_port => 80 }
       },
       :mysql => {
         :server_root_password => 'changeme'

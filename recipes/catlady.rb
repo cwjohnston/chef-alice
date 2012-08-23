@@ -25,8 +25,15 @@ catlady_config "#{node[:catlady][:root]}/shared/etc/config.json"
 
 mysql_config = {:host => node[:catlady][:db][:hostname], :username => 'root', :password => node[:mysql][:server_root_password]}
 
+execute "create SQL import lock" do
+  command "touch #{node[:catlady][:root]}/shared/.sql_done"
+  action :nothing
+end
+
 execute "initial SQL import" do
   command "mysql --user=#{node[:catlady][:db][:username]} --password=#{node[:catlady][:db][:password]} --host=#{node[:catlady][:db][:hostname]} #{node[:catlady][:db][:name]} < #{node[:catlady][:root]}/current/catlady.sql"
+  not_if { ::File.exists?("#{node[:catlady][:root]}/shared/.sql_done") }
+  notifies :run, "execute[create SQL import lock]", :immediately
   action :nothing
 end
 

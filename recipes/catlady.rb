@@ -25,7 +25,7 @@ catlady_config "#{node[:catlady][:root]}/shared/etc/config.json"
 
 mysql_config = {:host => node[:catlady][:db][:hostname], :username => 'root', :password => node[:mysql][:server_root_password]}
 
-mysql_import = execute "initial SQL import" do
+execute "initial SQL import" do
   command "mysql --user=#{node[:catlady][:db][:username]} --password=#{node[:catlady][:db][:password]} --host=#{node[:catlady][:db][:hostname]} #{node[:catlady][:db][:name]} < #{node[:catlady][:root]}/current/catlady.sql"
   action :nothing
 end
@@ -78,6 +78,5 @@ mysql_database_user node[:catlady][:db][:username] do
   privileges [:select,:update,:insert]
   action :grant
   not_if { node[:catlady][:db][:username] == "root" }
+  notifies :run, "execute[initial SQL import]", :immediately 
 end
-
-mysql_import.run_action(:run)

@@ -1,6 +1,10 @@
 # recipe: alice::default
 # this recipe licensed under apache license 2.0
 
+user node[:alice][:user] do
+  system true
+end
+
 package "libssl-dev"
 
 include_recipe "git"

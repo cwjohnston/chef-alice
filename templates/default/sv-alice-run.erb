@@ -1,4 +1,4 @@
 #!/bin/bash
 exec 2>&1
 export ALICE_DIR="<%= node[:alice][:root_dir] %>/shared" 
-exec /opt/alice/current/bin/alice -p <%= node[:alice][:port] %> -a <%= node[:alice][:ip] %>
+exec chpst -u<%= node[:alice][:user] %> /opt/alice/current/bin/alice -p <%= node[:alice][:port] %> -a <%= node[:alice][:ip] %>

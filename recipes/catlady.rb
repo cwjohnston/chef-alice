@@ -1,6 +1,10 @@
 include_recipe "alice::default"
 include_recipe "database"
 
+user node[:catlady][:user] do
+  system true
+end
+
 runit_service "catlady"
 
 service "catlady" do

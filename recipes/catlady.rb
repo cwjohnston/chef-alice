@@ -11,8 +11,8 @@ service "catlady" do
   supports :status => true, :restart => true
 end
 
-%w{ etc/users var }.each do |dir|
-  directory "#{node[:catlady][:root]}/shared/#{dir}" do
+%w{ shared/etc/users shared/var .cpanm }.each do |dir|
+  directory "#{node[:catlady][:root]}/#{dir}" do
     recursive true
     owner node[:catlady][:user]
     group node[:catlady][:user]

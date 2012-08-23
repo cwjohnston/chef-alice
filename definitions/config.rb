@@ -9,7 +9,7 @@ define :catlady_config do
 
   config = {
     :port => node[:catlady][:port],
-    :address => node[:catlady][:address],
+    :address => node[:catlady][:ip],
     :salt => node[:catlady][:salt],
     :secret => node[:catlady][:secret],
     :domain => node[:catlady][:domain],

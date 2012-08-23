@@ -75,7 +75,7 @@ mysql_database_user node[:catlady][:db][:username] do
   connection mysql_config
   password node[:catlady][:db][:password]
   database_name node[:catlady][:db][:name]
-  privileges [:select,:update,:insert]
+  privileges [:all]
   action :grant
   not_if { node[:catlady][:db][:username] == "root" }
   notifies :run, "execute[initial SQL import]", :immediately 

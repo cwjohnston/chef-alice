@@ -20,10 +20,12 @@ if node[:alice][:run_standalone]
   end
 end
 
-directory "#{node[:alice][:root]}/shared" do
-  recursive true
-  owner node[:alice][:user]
-  group node[:alice][:user]
+%w{ shared .cpanm }.each do |dir|
+  directory "#{node[:alice][:root]}/#{dir}" do
+    recursive true
+    owner node[:alice][:user]
+    group node[:alice][:user]
+  end
 end
 
 execute "setup alice extlib" do

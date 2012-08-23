@@ -27,6 +27,7 @@ define :catlady_config do
   }
 
   json_file params[:name] do
+    user node[:catlady][:user]
     content config
     mode 0644
   end

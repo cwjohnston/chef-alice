@@ -14,6 +14,8 @@ end
 %w{ etc/users var }.each do |dir|
   directory "#{node[:catlady][:root]}/shared/#{dir}" do
     recursive true
+    owner node[:catlady][:user]
+    group node[:catlady][:user]
   end
 end
 
@@ -26,6 +28,7 @@ catlady_config "#{node[:catlady][:root]}/shared/etc/config.json"
 mysql_config = {:host => node[:catlady][:db][:hostname], :username => 'root', :password => node[:mysql][:server_root_password]}
 
 execute "create SQL import lock" do
+  user node[:catlady][:user]
   command "touch #{node[:catlady][:root]}/shared/.sql_done"
   action :nothing
 end
@@ -50,12 +53,15 @@ end
     Text::MicroTemplate::File
     FindBin }.each do |pl|
       execute "install dependency #{pl}" do
+        user node[:catlady][:user]
         command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib #{pl}"
         not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -m#{pl} -e ''"
       end
     end
 
 deploy node[:catlady][:root] do
+  user node[:catlady][:user]
+  group node[:catlady][:user]
   not_if {File.exists?("#{node[:catlady][:root]}/deploy.lock")}
   repo node[:catlady][:repo]
   revision node[:catlady][:revision]

@@ -29,6 +29,7 @@ end
 execute "setup alice extlib" do
   command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
   user node[:alice][:user]
+  environment({"PERL_CPANM_HOME" => "#{node[:alice][:root]}/.cpanm")}
   not_if "perl -I#{node[:alice][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:alice][:root]}/shared/extlib -mModule::Install -e ''"
 end
 

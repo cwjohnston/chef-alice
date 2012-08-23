@@ -54,6 +54,7 @@ end
     FindBin }.each do |pl|
       execute "install dependency #{pl}" do
         user node[:catlady][:user]
+        environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
         command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib #{pl}"
         not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -m#{pl} -e ''"
       end

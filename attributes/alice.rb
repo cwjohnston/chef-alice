@@ -6,3 +6,4 @@ default.alice[:ip] = "0.0.0.0"
 default.alice[:port] = "8000"
 default.alice[:user] = "alice"
 default.alice[:require_auth] = false
+default.alice[:run_standalone] = true

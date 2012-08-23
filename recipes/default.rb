@@ -9,13 +9,15 @@ package "libssl-dev"
 
 include_recipe "git"
 include_recipe "perl"
-include_recipe "runit"
 include_recipe "build-essential"
 
-runit_service "alice"
+if node[:alice][:run_standalone]
+  include_recipe "runit"
+  runit_service "alice"
 
-service "alice" do
-  supports :status => true, :restart => true
+  service "alice" do
+    supports :status => true, :restart => true
+  end
 end
 
 directory "#{node[:alice][:root]}/shared" do

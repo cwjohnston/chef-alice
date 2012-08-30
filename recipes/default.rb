@@ -47,6 +47,8 @@ deploy node[:alice][:root] do
   before_restart do
     execute "install alice dependencies" do
       command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib --installdeps #{node[:alice][:root]}/current"
+      user node[:alice][:user]
+      environment({"PERL_CPANM_HOME" => "#{node[:alice][:root]}/.cpanm"})
     end
-  end 
+  end
 end

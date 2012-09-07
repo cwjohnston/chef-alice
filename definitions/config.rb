@@ -22,8 +22,8 @@ define :catlady_config do
     :dsn => "DBI:mysql:dbname=#{node[:catlady][:db][:name]};host=#{node[:catlady][:db][:hostname]};port=#{node[:catlady][:db][:port]};mysql_auto_reconnect=1;mysql_enable_utf8=1",
     :db_attr => node[:catlady][:db][:params].to_hash,
     :default_server => node[:catlady][:default_server].to_hash,
-    :static_prefix => "/static/",
-    :image_prefix => ""
+    :static_prefix => node[:catlady][:static_prefix],
+    :image_prefix => node[:catlady][:image_prefix]
   }
 
   json_file params[:name] do

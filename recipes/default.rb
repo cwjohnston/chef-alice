@@ -39,7 +39,7 @@ deploy node[:alice][:root] do
   user node[:alice][:user]
   group node[:alice][:user]
   not_if {File.exists?("#{node[:alice][:root]}/deploy.lock")}
-  repo node[:alice][:repo]
+  repository node[:alice][:repo]
   revision node[:alice][:revision]
   symlink_before_migrate "" => ""
   symlinks "extlib" => "extlib"

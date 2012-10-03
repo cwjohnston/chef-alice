@@ -64,7 +64,7 @@ deploy node[:catlady][:root] do
   user node[:catlady][:user]
   group node[:catlady][:user]
   not_if {File.exists?("#{node[:catlady][:root]}/deploy.lock")}
-  repo node[:catlady][:repo]
+  repository node[:catlady][:repo]
   revision node[:catlady][:revision]
   symlink_before_migrate "" => ""
   symlinks({ 

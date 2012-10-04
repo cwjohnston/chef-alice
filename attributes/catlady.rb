@@ -20,3 +20,4 @@ default.catlady[:db][:username] = "root"
 default.catlady[:db][:password] = nil 
 default.catlady[:db][:name] = "alice"
 default.catlady[:db][:params] = Hash.new
+default.catlady[:idle_limit] = 604800

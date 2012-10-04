@@ -23,7 +23,8 @@ define :catlady_config do
     :db_attr => node[:catlady][:db][:params].to_hash,
     :default_server => node[:catlady][:default_server].to_hash,
     :static_prefix => node[:catlady][:static_prefix],
-    :image_prefix => node[:catlady][:image_prefix]
+    :image_prefix => node[:catlady][:image_prefix],
+    :idle_limit => node[:catlady][:idle_limit]
   }
 
   json_file params[:name] do

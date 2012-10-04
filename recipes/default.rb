@@ -38,7 +38,7 @@ end
 deploy node[:alice][:root] do
   user node[:alice][:user]
   group node[:alice][:user]
-  not_if {File.exists?("#{node[:alice][:root]}/deploy.lock")}
+  not_if {::File.exists?("#{node[:alice][:root]}/deploy.lock")}
   repository node[:alice][:repo]
   revision node[:alice][:revision]
   symlink_before_migrate "" => ""

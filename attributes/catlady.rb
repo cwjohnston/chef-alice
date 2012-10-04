@@ -20,4 +20,6 @@ default.catlady[:db][:username] = "root"
 default.catlady[:db][:password] = nil 
 default.catlady[:db][:name] = "alice"
 default.catlady[:db][:params] = Hash.new
+default.catlady[:static_prefix] = "/static"
+default.catlady[:image_prefix] = "https://noembed.com/i/"
 default.catlady[:idle_limit] = 604800

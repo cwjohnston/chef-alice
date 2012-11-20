@@ -40,25 +40,18 @@ execute "initial SQL import" do
   action :nothing
 end
 
-%w{ FindBin
-    Digest::SHA1
-    Digest::HMAC_SHA1
-    Plack::Middleware::ReverseProxy
-    Plack::Session
-    Any::Moose
-    AnyEvent
-    AnyEvent::DBI::Abstract
-    List::Util
-    Path::Class
-    Text::MicroTemplate::File
-    FindBin }.each do |pl|
-      execute "install dependency #{pl}" do
-        user node[:catlady][:user]
-        environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
-        command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib #{pl}"
-        not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -m#{pl} -e ''"
-      end
-    end
+execute "setup catlady extlib" do
+  command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib Module::Install local::lib"
+  user node[:catlady][:user]
+  environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
+  not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -mModule::Install -e ''"
+end
+
+execute "install catlady dependencies" do
+  command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib --installdeps #{node[:catlady][:root]}/current"
+  user node[:catlady][:user]
+  environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
+end
 
 deploy node[:catlady][:root] do
   user node[:catlady][:user]

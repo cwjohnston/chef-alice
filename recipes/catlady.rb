@@ -33,7 +33,7 @@ execute "create SQL import lock" do
 end
 
 execute "initial SQL import" do
-  command "mysql --user=#{node[:catlady][:db][:username]} --password=#{node[:catlady][:db][:password]} --host=#{node[:catlady][:db][:hostname]} #{node[:catlady][:db][:name]} < #{node[:catlady][:root]}/current/catlady.sql"
+  command "mysql --user=#{node[:catlady][:db][:username]} --password=#{node[:catlady][:db][:password]} --host=#{node[:catlady][:db][:hostname]} #{node[:catlady][:db][:name]} < #{node[:catlady][:root]}/current/catlady.mysql.sql"
   not_if { ::File.exists?("#{node[:catlady][:root]}/shared/.sql_done") }
   notifies :run, "execute[create SQL import lock]", :immediately
   action :nothing

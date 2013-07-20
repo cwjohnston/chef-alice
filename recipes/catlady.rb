@@ -23,7 +23,7 @@ link "#{node[:catlady][:root]}/shared/extlib" do
   to "#{node[:alice][:root]}/shared/extlib"
 end
 
-catlady_config "#{node[:catlady][:root]}/shared/etc/config.json"
+include_recipe 'alice::_catlady_config'
 
 mysql_config = {:host => node[:catlady][:db][:hostname], :username => 'root', :password => node[:mysql][:server_root_password]}
 

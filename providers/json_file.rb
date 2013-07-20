@@ -12,7 +12,7 @@ action :create do
       group new_resource.group
       mode new_resource.mode
       content Alice::JSONFile.dump_json(new_resource.content)
-      notifies :create, "service[catlady]"
+      notifies :restart, "runit_service[catlady]"
     end
   end
 end
@@ -20,6 +20,6 @@ end
 action :delete do
   file new_resource.path do
     action :delete
-    notifies :create, "service[catlady]"
+    notifies :restart, "runit_service[catlady]"
   end
 end

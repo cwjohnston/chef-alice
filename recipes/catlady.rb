@@ -1,3 +1,4 @@
+include_recipe "runit"
 include_recipe "alice::default"
 include_recipe "database"
 
@@ -70,7 +71,10 @@ deploy node[:catlady][:root] do
     link "#{node[:catlady][:root]}/current/share" do
       to "#{node[:alice][:root]}/current/share"
     end
+
+    runit_service "catlady"
   end
+  notifies :restart, "runit_service[catlady]"
 end
 
 mysql_database node[:catlady][:db][:name] do
@@ -87,3 +91,5 @@ mysql_database_user node[:catlady][:db][:username] do
   not_if { node[:catlady][:db][:username] == "root" }
   notifies :run, "execute[initial SQL import]", :immediately 
 end
+
+runit_service "catlady"

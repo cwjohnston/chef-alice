@@ -1,3 +1,4 @@
+name "alice"
 maintainer "Cameron W Johnston"
 maintainer_email "cwjohnston@gmail.com"
 license "Apache 2.0"

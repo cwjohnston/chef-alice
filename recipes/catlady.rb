@@ -46,12 +46,6 @@ execute "setup catlady extlib" do
   not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -mModule::Install -e ''"
 end
 
-execute "install catlady dependencies" do
-  command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib --installdeps #{node[:catlady][:root]}/current"
-  user node[:catlady][:user]
-  environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
-end
-
 deploy node[:catlady][:root] do
   user node[:catlady][:user]
   group node[:catlady][:user]
@@ -68,6 +62,20 @@ deploy node[:catlady][:root] do
   before_restart do
     link "#{node[:catlady][:root]}/current/share" do
       to "#{node[:alice][:root]}/current/share"
+    end
+
+    execute "install explicit catlady dependencies" do
+      command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib --installdeps ."
+      user node[:catlady][:user]
+      environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
+      cwd "#{node[:catlady][:root]}/current"
+    end
+
+    execute "install not-so-explicit catlady dependencies" do
+      command "cpanm --notest --local-lib #{node[:catlady][:root]}/shared/extlib JSON::XS"
+      user node[:catlady][:user]
+      environment({"PERL_CPANM_HOME" => "#{node[:catlady][:root]}/.cpanm"})
+      cwd "#{node[:catlady][:root]}/current"
     end
 
     runit_service "catlady"

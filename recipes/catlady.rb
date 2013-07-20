@@ -6,17 +6,15 @@ user node[:catlady][:user] do
   system true
 end
 
-runit_service "catlady"
-
-service "catlady" do
-  supports :status => true, :restart => true
-end
-
-%w{ shared/etc/users shared/var .cpanm }.each do |dir|
+%w{ shared shared/etc/users shared/var .cpanm }.each do |dir|
   directory "#{node[:catlady][:root]}/#{dir}" do
     recursive true
     owner node[:catlady][:user]
     group node[:catlady][:user]
+  end
+
+  execute "fix ownership of #{node[:catlady][:root]}/#{dir}" do
+    command "chown -R #{node[:catlady][:user]}.#{node[:catlady][:user]} #{node[:catlady][:root]}/#{dir}"
   end
 end
 

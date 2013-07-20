@@ -24,8 +24,13 @@ end
 
 include_recipe 'alice::_catlady_config'
 
-mysql_config = {:host => node[:catlady][:db][:hostname], :username => 'root', :password => node[:mysql][:server_root_password]}
+mysql_config = {
+  :host => node[:catlady][:db][:hostname],
+  :username => 'root',
+  :password => node[:mysql][:server_root_password]
+}
 
+# FIXME: find a smarter way to do this, e.g. using chef database LWRP
 execute "create SQL import lock" do
   user node[:catlady][:user]
   command "touch #{node[:catlady][:root]}/shared/.sql_done"
@@ -53,7 +58,7 @@ deploy node[:catlady][:root] do
   repository node[:catlady][:repo]
   revision node[:catlady][:revision]
   symlink_before_migrate "" => ""
-  symlinks({ 
+  symlinks({
     "extlib" => "extlib",
     "etc" => "etc",
     "var" => "var"
@@ -95,7 +100,7 @@ mysql_database_user node[:catlady][:db][:username] do
   privileges [:all]
   action :grant
   not_if { node[:catlady][:db][:username] == "root" }
-  notifies :run, "execute[initial SQL import]", :immediately 
+  notifies :run, "execute[initial SQL import]", :immediately
 end
 
 runit_service "catlady"

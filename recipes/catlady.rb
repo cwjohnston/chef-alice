@@ -51,7 +51,7 @@ execute "setup catlady extlib" do
   not_if "perl -I#{node[:catlady][:root]}/shared/extlib/lib/perl5/ -Mlocal::lib=#{node[:catlady][:root]}/shared/extlib -mModule::Install -e ''"
 end
 
-deploy node[:catlady][:root] do
+deploy_revision node[:catlady][:root] do
   user node[:catlady][:user]
   group node[:catlady][:user]
   not_if {::File.exists?("#{node[:catlady][:root]}/deploy.lock")}

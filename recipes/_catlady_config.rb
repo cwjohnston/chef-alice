@@ -29,4 +29,5 @@ alice_json_file "#{node[:catlady][:root]}/shared/etc/config.json" do
   owner node[:catlady][:user]
   content config
   mode 0644
+  notifies :restart, "runit_service[catlady]"
 end

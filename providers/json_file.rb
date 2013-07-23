@@ -12,14 +12,16 @@ action :create do
       group new_resource.group
       mode new_resource.mode
       content Alice::JSONFile.dump_json(new_resource.content)
-      notifies :restart, "runit_service[catlady]"
     end
+
+    new_resource.updated_by_last_action(true)
+  else
+    new_resource.updated_by_last_action(false)
   end
 end
 
 action :delete do
   file new_resource.path do
     action :delete
-    notifies :restart, "runit_service[catlady]"
   end
 end

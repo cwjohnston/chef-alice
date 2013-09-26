@@ -8,7 +8,7 @@ data_bag_path = '/tmp/alice-data_bags'
 
 desc "install dependencies using Berkshelf"
 task :install_deps do
-  system("berks install --shims #{cookbook_path}")
+  system("berks install --path #{cookbook_path}")
   system("ln -sfv #{File.join(current_dir,'data_bags')} #{data_bag_path}")
 end
 

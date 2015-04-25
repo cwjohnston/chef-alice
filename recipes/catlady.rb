@@ -1,6 +1,5 @@
 include_recipe "runit"
 include_recipe "alice::default"
-include_recipe "database"
 
 user node[:catlady][:user] do
   system true

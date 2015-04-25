@@ -9,6 +9,6 @@ version "0.3.5"
 depends 'build-essential'
 depends 'git'
 depends 'perl'
-depends 'database'
-depends 'varnish'
+depends 'database', '~> 4.0'
+depends 'varnish', '~> 2.1'
 depends 'runit', '~> 1.1'

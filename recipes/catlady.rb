@@ -17,6 +17,12 @@ end
   end
 end
 
+directory node[:catlady][:logdir] do
+  recursive true
+  owner node[:catlady][:user]
+  group node[:catlady][:user]
+end
+
 link "#{node[:catlady][:root]}/shared/extlib" do
   to "#{node[:alice][:root]}/shared/extlib"
 end

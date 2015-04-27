@@ -3,6 +3,7 @@ default[:catlady][:catlady][:require_auth] = false
 default[:catlady][:repo] = "https://github.com/leedo/catlady.git"
 default[:catlady][:revision] = "HEAD"
 default[:catlady][:root] = "/opt/catlady"
+default[:catlady][:logdir] = '/var/log/catlady'
 default[:catlady][:ip] = "0.0.0.0"
 default[:catlady][:port] = "9000"
 default[:catlady][:user] = "alice"

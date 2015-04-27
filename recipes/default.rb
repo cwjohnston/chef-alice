@@ -28,6 +28,12 @@ end
   end
 end
 
+directory node[:alice][:logdir] do
+  recursive true
+  owner node[:alice][:user]
+  group node[:alice][:user]
+end
+
 execute "setup alice extlib" do
   command "cpanm --notest --local-lib #{node[:alice][:root]}/shared/extlib Module::Install local::lib"
   user node[:alice][:user]
